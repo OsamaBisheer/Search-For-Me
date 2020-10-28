@@ -1,0 +1,265 @@
+/* Gloabl Styles */
+
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html{
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
+
+
+header{
+    width: 100%;
+    height: 5rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.container{
+    width: 100%;
+    max-width: 98rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+nav{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+}
+
+
+
+ .nav-list{
+    padding-top: 3rem;
+    width: 13rem;
+    height: 100vh;
+    background-color: #5fb2db;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1500;
+}
+
+.nav-list.active{
+    right: 0;
+}
+
+.close{
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+}
+
+.nav-item{
+    margin: 0 0 1.5rem 1rem;
+}
+
+.nav-link{
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.close i{
+    color: #eb648c;
+}
+
+fa-icon{
+    padding-right: 1rem;
+}
+
+.userName{
+    margin-right: 2rem;
+    font-weight: bold;
+}
+
+#buttonWebsite{
+    margin-top: 3rem;
+    background-color: #000;
+    color:#fafafa;
+    width: 4rem;
+    height: 2rem;
+    border-radius: 10%;
+}
+
+.contact{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: absolute;
+    left: 1rem;
+}
+
+.contact fa-icon{
+    background-color: #000;
+    color: #fafafa;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    padding-left: 0.3rem;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    width: 0.5rem;
+    height: 1rem;
+}
+
+#HRUser{
+    font-weight: bold;
+    display: inline-block;
+}
+
+#HR{
+    display:inline-block;
+    border-bottom:1px solid black;
+    padding-bottom:2px;
+}
+
+.generalSettings, .tableSettings > div{
+    margin-top: 1.5rem;
+    margin-left: 11rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.generalSettings div{
+    margin-left: 2rem;
+}
+
+.language{
+    background-color: #ded4ed;
+    border-radius: 10%;
+    padding: 0.3rem;
+    width: 0.5rem;
+    height: 1rem;
+}
+
+.language.active{
+    background-color: #5fb2db;
+
+}
+
+
+.tableSettings > div > span{
+    margin:0.3rem 0 0 2rem;
+}
+
+.tableSettings fa-icon{
+    padding-right: 0;
+}
+
+.tableSettings input{
+    background-color: #fff;
+    border: none;
+}
+
+.tableSettings div div{
+    margin-left: 0.3rem;
+    border: 1px solid #5fb2db;
+    border-radius: 10%;
+    width: 7rem;
+    height: 1rem;
+    padding: 0.3rem;
+}
+
+.tableSettings div div >:nth-child(1){
+    margin-right: 1.5rem;
+}
+
+.tableSettings div >:nth-child(2){
+    width: 4rem;
+}
+
+.tableSettings div >:nth-child(5){
+    width: 6rem;
+}
+
+@media screen and (max-width:700px){
+    .nav-list{
+        left: -13rem;
+    }
+
+    main section ,.tableSettings > div{
+        margin-left: 0rem;
+    }
+    
+    .generalSettings >:nth-child(1){
+        margin-left: 0rem;
+    }
+
+    .tableSettings > div > span{
+        margin:0.3rem 0 0 0;
+    }
+}
+
+@media screen and (max-width:500px){
+    
+
+    .generalSettings{
+        justify-content: center;
+        align-items: center;
+        margin-right: 2rem;
+    }
+    
+    .generalSettings div{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .generalSettings div *{
+        margin-top: 0.5rem;
+    }
+
+    .language{
+        padding: 0.3rem;
+        width: 3rem;
+    }
+
+
+    .tableSettings{
+    position: fixed;
+    top: 0;
+    right: 5rem;
+    }
+
+    .tableSettings > div{
+        display: flex;
+        flex-direction: column;   
+        justify-content: unset;
+        align-items: unset; 
+    }
+    
+}
+
+@media screen and (max-width:300px){
+    
+    .generalSettings{
+        justify-content: unset;
+
+    }
+}
+
+@media screen and (max-width:250px){
+    
+    #HRUser{
+        width: 3.8rem;
+    }
+}
+
