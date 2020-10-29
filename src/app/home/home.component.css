@@ -22,7 +22,6 @@ ul{
 
 
 header{
-    width: 100%;
     height: 5rem;
     position: absolute;
     top: 0;
@@ -53,9 +52,11 @@ nav{
     width: 13rem;
     height: 100vh;
     background-color: #5fb2db;
+    overflow-y: auto;
     position: fixed;
     top: 0;
     left: 0;
+    bottom: 0;
     z-index: 1500;
 }
 
@@ -119,7 +120,7 @@ fa-icon{
     padding-bottom: 0.3rem;
     width: 0.5rem;
     height: 1rem;
-}
+} 
 
 #HRUser{
     font-weight: bold;
@@ -132,7 +133,7 @@ fa-icon{
     padding-bottom:2px;
 }
 
-.generalSettings, .tableSettings > div{
+.generalSettings{
     margin-top: 1.5rem;
     margin-left: 11rem;
     display: flex;
@@ -153,24 +154,30 @@ fa-icon{
 
 .language.active{
     background-color: #5fb2db;
-
 }
 
-
-.tableSettings > div > span{
-    margin:0.3rem 0 0 2rem;
+.generalSettings>:last-child{
+    position: fixed;
+    top: 4rem;
+    left: 11rem;
+    display: flex;
+    flex-direction: row;
 }
 
-.tableSettings fa-icon{
+.generalSettings>:last-child > span{
+    margin:0.3rem 0 0 0.5rem;
+}
+
+.generalSettings>:last-child fa-icon{
     padding-right: 0;
 }
 
-.tableSettings input{
+.generalSettings>:last-child input{
     background-color: #fff;
     border: none;
 }
 
-.tableSettings div div{
+.generalSettings>:last-child div{
     margin-left: 0.3rem;
     border: 1px solid #5fb2db;
     border-radius: 10%;
@@ -179,19 +186,19 @@ fa-icon{
     padding: 0.3rem;
 }
 
-.tableSettings div div >:nth-child(1){
+.generalSettings>:last-child div >:nth-child(1){
     margin-right: 1.5rem;
 }
 
-.tableSettings div >:nth-child(2){
+.generalSettings>:last-child >:nth-child(2){
     width: 4rem;
 }
 
-.tableSettings div >:nth-child(5){
+.generalSettings>:last-child >:nth-child(5){
     width: 6rem;
 }
 
-@media screen and (max-width:700px){
+@media screen and (max-width:750px){
     .nav-list{
         left: -13rem;
     }
@@ -204,12 +211,15 @@ fa-icon{
         margin-left: 0rem;
     }
 
-    .tableSettings > div > span{
-        margin:0.3rem 0 0 0;
+    .generalSettings>:last-child{
+        left:0;
+        margin:0;
     }
+
+    
 }
 
-@media screen and (max-width:500px){
+@media screen and (max-width:530px){
     
 
     .generalSettings{
@@ -218,7 +228,12 @@ fa-icon{
         margin-right: 2rem;
     }
     
-    .generalSettings div{
+    .generalSettings>:last-child{
+        position: static;
+        flex-direction: column;
+    }
+
+    .generalSettings> div{
         display: flex;
         flex-direction: column;
     }
@@ -227,39 +242,93 @@ fa-icon{
         margin-top: 0.5rem;
     }
 
+    .generalSettings>:last-child > div > *{
+        margin-top: -0.5rem;
+    }
+
     .language{
         padding: 0.3rem;
         width: 3rem;
     }
 
 
-    .tableSettings{
-    position: fixed;
-    top: 0;
-    right: 5rem;
-    }
-
-    .tableSettings > div{
-        display: flex;
-        flex-direction: column;   
-        justify-content: unset;
-        align-items: unset; 
-    }
+   
     
 }
 
-@media screen and (max-width:300px){
+@media screen and (max-width:400px){
     
     .generalSettings{
         justify-content: unset;
 
     }
-}
 
-@media screen and (max-width:250px){
     
     #HRUser{
         width: 3.8rem;
     }
 }
+
+ /* @media screen and (max-width:360px){
+    
+    .generalSettings>:nth-child(3),.generalSettings>:nth-child(4){
+        position: fixed;
+        margin: 0;
+        padding: 0;
+        top: 11rem;
+        bottom: 10rem;
+        overflow-y:auto;
+    }
+
+    .generalSettings>:nth-child(3){
+        left: 0.5rem;
+    }
+
+    .generalSettings>:nth-child(4){
+        left: 5.5rem;
+    }
+}  */
+
+@media screen and (max-height:500px){
+    .nav-list{
+        height: 89vh;
+    }
+}
+
+@media screen and (max-height:400px){
+    .nav-list{
+        height: 86vh;
+    }
+}
+
+@media screen and (max-height:300px){
+    .nav-list{
+        height: 80vh;
+    }
+}
+
+@media screen and (max-height:200px){
+    .nav-list{
+        height: 71vh;
+    }
+}
+
+@media screen and (max-height:150px){
+    .nav-list{
+        height: 65vh;
+    }
+}
+
+@media screen and (max-height:100px){
+    .nav-list{
+        height: 45vh;
+    }
+}
+
+@media screen and (max-height:70px){
+    .nav-list{
+        height: 22vh;
+    }
+}
+
 
