@@ -6,6 +6,7 @@
     margin: 0;
     padding: 0;
     box-sizing: inherit;
+    scrollbar-width: thin;
 }
 
 html{
@@ -197,6 +198,67 @@ fa-icon{
 .generalSettings>:last-child >:nth-child(5){
     width: 6rem;
 }
+
+.table{
+    margin: 5rem 0 0 13rem;
+    
+}
+
+table fa-icon{
+    padding: 0;
+}
+
+table{
+    border-radius: 2%;
+    border-spacing: 0;
+    width: 100%;
+    white-space: nowrap;
+    max-width: 63.5rem;
+    display: block;
+    overflow-x: scroll;
+    scroll-margin-right: 3;
+}
+
+
+th fa-icon:last-child{
+    margin-left: 7rem;
+}
+
+
+table , th  {
+    border: 1px solid #5fb2db;
+}
+
+td{
+    border-left: 1px solid #5fb2db;
+    border-right: 1px solid #5fb2db;;
+}
+
+ th , td{
+    text-align: left;
+    padding: 1rem 1rem 1rem 0.5rem;
+} 
+
+tr td:last-child input{
+    margin: 0 0.5rem;
+    background-color: #fff;
+    border: none;
+}
+
+*::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #aaa;
+    border-radius: 2rem;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 2rem;
+  }
 
 @media screen and (max-width:750px){
     .nav-list{
