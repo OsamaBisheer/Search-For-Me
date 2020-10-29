@@ -260,6 +260,32 @@ tr td:last-child input{
     border-radius: 2rem;
   }
 
+  .tableButtons{
+    display: flex;
+    margin-left: 75%;
+    margin-top: 1rem;
+  }
+
+  .tableButtons *{
+      margin: 0;
+      padding: 0;
+  }
+
+  .tableButtons div:first-child{
+      margin-right: 1rem;
+  }
+
+  .tableButtons div input{
+      background-color: #fff;
+      border: none;
+      margin:  0.1rem;
+  }
+
+  #pageNum{
+    margin-left: 85%;
+    margin-top: 0.5rem;
+  }
+
 @media screen and (max-width:750px){
     .nav-list{
         left: -13rem;

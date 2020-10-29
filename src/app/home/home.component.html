@@ -8,38 +8,46 @@
 
             <ul class="nav-list">
                 <div class="menu-icons close">
-                    <i class="icon ion-md-close">close</i>
+                    <fa-icon [icon]="faTimes"></fa-icon>
                 </div>
                 <li class="nav-item">
                     <span class="userName">Ahmed</span>
                 </li>
                 <li class="nav-item">
-                    <fa-icon [icon]="faCoffee"></fa-icon>
+                    <fa-icon [icon]="faHome"></fa-icon>
                     <a href="#" class="nav-link current">Home</a>
                 </li>
                 <li class="nav-item">
-                    <fa-icon [icon]="faCoffee"></fa-icon>
-                    <a href="#" class="nav-link">DestDestDest</a>
+                    <fa-icon [icon]="faDollarSign"></fa-icon>
+                    <a href="#" class="nav-link">Payroll</a>
                 </li>
                 <li class="nav-item">
-                    <fa-icon [icon]="faCoffee"></fa-icon>
-                    <a href="#" class="nav-link">Pricing</a>
+                    <fa-icon [icon]="faBook"></fa-icon>
+                    <a href="#" class="nav-link">My Payslip</a>
                 </li>
                 <li class="nav-item">
-                    <fa-icon [icon]="faCoffee"></fa-icon>
-                    <a href="#" class="nav-link">Booking</a>
+                    <fa-icon [icon]="faLink"></fa-icon>
+                    <a href="#" class="nav-link">My Loans</a>
                 </li>
                 <li class="nav-item">
-                    <fa-icon [icon]="faCoffee"></fa-icon>
-                    <a href="#" class="nav-link">About</a>
+                    <fa-icon [icon]="faUser"></fa-icon>
+                    <a href="#" class="nav-link">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <fa-icon [icon]="faChartPie"></fa-icon>
+                    <a href="#" class="nav-link">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <fa-icon [icon]="faCog"></fa-icon>
+                    <a href="#" class="nav-link">Settings</a>
                 </li>
                 <input id="buttonWebsite" class="nav-item" type="button" value="Website">
 
                 <div>
                     <ul class="contact">
-                        <fa-icon [icon]="faCoffee"></fa-icon>
-                        <fa-icon [icon]="faCoffee"></fa-icon>
-                        <fa-icon [icon]="faCoffee"></fa-icon>
+                        <fa-icon [icon]="faTwitter"></fa-icon>
+                        <fa-icon [icon]="faLinkedin"></fa-icon>
+                        <fa-icon [icon]="faFacebook"></fa-icon>
                     </ul>
                 </div>
             </ul>
@@ -50,7 +58,7 @@
 <main>
     <section class="generalSettings">
         <div>
-            <fa-icon [icon]="faCoffee"></fa-icon>
+            <fa-icon [icon]="faBars"></fa-icon>
             <p id="HRUser"><span id="HR">HR</span> User</p>
         </div>
         <div>
@@ -65,11 +73,11 @@
             </span>
         </div>
         <div>
-            <fa-icon [icon]="faCoffee"></fa-icon>
-            <fa-icon [icon]="faCoffee"></fa-icon>
-            <fa-icon [icon]="faCoffee"></fa-icon>
-            <fa-icon [icon]="faCoffee"></fa-icon>
-            <fa-icon [icon]="faCoffee"></fa-icon>
+            <fa-icon [icon]="faEnvelope"></fa-icon>
+            <fa-icon [icon]="faQuestionCircle"></fa-icon>
+            <fa-icon [icon]="faCog"></fa-icon>
+            <fa-icon [icon]="faCaretDown"></fa-icon>
+            <i>Show Filters</i>
         </div>
         <div>
             <span>
@@ -77,19 +85,19 @@
             </span>
             <div id="dropDown">
                 <input type="button" value="20">
-                <fa-icon [icon]="faCoffee"></fa-icon>
+                <fa-icon [icon]="faAngleDown"></fa-icon>
             </div>
             <div>
-                <fa-icon [icon]="faCoffee"></fa-icon>
+                <fa-icon [icon]="faPlus"></fa-icon>
                 <input type="button" value="Employee">
             </div>
             <div>
-                <fa-icon [icon]="faCoffee"></fa-icon>
+                <fa-icon [icon]="faPlus"></fa-icon>
                 <input type="button" value="Add Filter">
             </div>
             <div>
                 <input type="button" value="Export">
-                <fa-icon [icon]="faCoffee"></fa-icon>
+                <fa-icon [icon]="faDownload"></fa-icon>
             </div>
         </div>
     </section>
@@ -98,20 +106,21 @@
             <thead>
                 <tr>
                     <th>
-                        hjgvhhh<fa-icon [icon]="faCoffee"></fa-icon>
-                        <fa-icon [icon]="faCoffee"></fa-icon>
+                        Name
+                        <fa-icon [icon]="faSearch"></fa-icon>
+                        <fa-icon [icon]="faAngleUp"></fa-icon>
                     </th>
                     <th>
-                        ghfgfgf
+                        Title
                     </th>
                     <th>
-                        ghfgfgf
+                        Hiring Date
                     </th>
                     <th>
-                        ghfgfgf
+                        Gross Salary
                     </th>
                     <th>
-                        ghfgfgf
+                        Actions
                     </th>
                 </tr>
             </thead>
@@ -130,7 +139,7 @@
                         uhuhuh rfrdrd ijoijoi ftftftf
                     </td>
                     <td>
-                        <fa-icon [icon]="faCoffee"></fa-icon> <input type="button" value="Terminate" /> <input
+                        <fa-icon [icon]="faEdit"></fa-icon> <input type="button" value="Terminate" /> <input
                             type="button" value="Suspend" />
                     </td>
                 </tr>
@@ -148,7 +157,7 @@
                         uhuhuh rfrdrd ijoijoi ftftftf
                     </td>
                     <td>
-                        <fa-icon [icon]="faCoffee"></fa-icon> <input type="button" value="Terminate" /> <input
+                        <fa-icon [icon]="faEdit"></fa-icon> <input type="button" value="Terminate" /> <input
                             type="button" value="Suspend" />
                     </td>
                 </tr>
@@ -166,11 +175,24 @@
                         uhuhuh rfrdrd ijoijoi ftftftf
                     </td>
                     <td>
-                        <fa-icon [icon]="faCoffee"></fa-icon> <input type="button" value="Terminate" /> <input
+                        <fa-icon [icon]="faEdit"></fa-icon> <input type="button" value="Terminate" /> <input
                             type="button" value="Suspend" />
                     </td>
                 </tr>
             </tbody>
         </table>
+        <div class="tableButtons">
+            <div>
+                <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
+                <input type="button" value="Previous">
+            </div>
+            <div>
+                <input type="button" value="Next">
+                <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
+            </div>
+        </div>
+        <p id="pageNum">
+            Page 1/40
+        </p>
     </section>
 </main>
