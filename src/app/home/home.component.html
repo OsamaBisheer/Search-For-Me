@@ -125,54 +125,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr *ngFor="let employee of displayedEmployees">
                     <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
+                        {{employee.fullName_FL}}
                     </td>
                     <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
+                        {{employee.position.name_FL}}
                     </td>
                     <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
+                        {{employee.hiringDate | date}}
                     </td>
                     <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
-                    </td>
-                    <td>
-                        <fa-icon [icon]="faEdit"></fa-icon> <input type="button" value="Terminate" /> <input
-                            type="button" value="Suspend" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
-                    </td>
-                    <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
-                    </td>
-                    <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
-                    </td>
-                    <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
-                    </td>
-                    <td>
-                        <fa-icon [icon]="faEdit"></fa-icon> <input type="button" value="Terminate" /> <input
-                            type="button" value="Suspend" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
-                    </td>
-                    <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
-                    </td>
-                    <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
-                    </td>
-                    <td>
-                        uhuhuh rfrdrd ijoijoi ftftftf
+                        {{employee.firstContractingSalary | number}}
                     </td>
                     <td>
                         <fa-icon [icon]="faEdit"></fa-icon> <input type="button" value="Terminate" /> <input

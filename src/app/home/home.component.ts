@@ -1,17 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   faCoffee, faHome, faDollarSign, faBook, faUser, faChartPie, faPlus, faDownload, faAngleDoubleLeft,
   faCog, faLink, faBars, faTimes, faCaretDown, faSearch, faAngleUp, faAngleDown, faAngleDoubleRight
 } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter, faLinkedinIn, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faQuestionCircle, faEdit } from '@fortawesome/free-regular-svg-icons';
+import { EmployeeService } from '../services/employee.service';
+import { Employee } from '../models/employee';
+import { Subscription, range } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+
   faTimes = faTimes;
   faCoffee = faCoffee;
   faHome = faHome;
@@ -36,10 +41,24 @@ export class HomeComponent implements OnInit {
   faEdit = faEdit;
   faAngleDoubleLeft = faAngleDoubleLeft;
   faAngleDoubleRight = faAngleDoubleRight;
-
-  constructor() { }
+  private employees: Array<Employee>;
+  displayedEmployees: Array<Employee>;
+  private subscribe: Subscription;
+  constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
+    //this.employees = this.employeeService.getEmployees();
+    this.subscribe = this.employeeService.getEmployeesUsingHttp()
+      .subscribe(employeesObject => {
+        this.employees = (employeesObject as any)
+          .data.employees as Array<Employee>;
+        this.displayedEmployees = this.employees.slice(0, 19)
+      });
+  }
+
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe();
   }
 
 }
