@@ -7,8 +7,8 @@ import { faTwitter, faLinkedinIn, faFacebookF } from '@fortawesome/free-brands-s
 import { faEnvelope, faQuestionCircle, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { EmployeeService } from '../services/employee.service';
 import { Employee } from '../models/employee';
-import { Subscription, range } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Subscription, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -41,19 +41,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   faEdit = faEdit;
   faAngleDoubleLeft = faAngleDoubleLeft;
   faAngleDoubleRight = faAngleDoubleRight;
-  private employees: Array<Employee>;
-  displayedEmployees: Array<Employee>;
+  employees: Array<Employee>;
   private subscribe: Subscription;
+  private countObservable: Observable<Object>;
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit(): void {
     //this.employees = this.employeeService.getEmployees();
-    this.subscribe = this.employeeService.getEmployeesUsingHttp()
-      .subscribe(employeesObject => {
-        this.employees = (employeesObject as any)
-          .data.employees as Array<Employee>;
-        this.displayedEmployees = this.employees.slice(0, 19)
-      });
+    this.countObservable = this.employeeService.getEmployeesUsingHttp()
+      .pipe(map(employeesObject =>
+        ((employeesObject as any)
+          .data.employees as Array<Employee>)));
+
+    this.countObservable.subscribe(employeesObject =>
+      this.employees = (employeesObject as any)
+        .data.employees as Array<Employee>);
   }
 
 
