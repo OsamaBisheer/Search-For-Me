@@ -1,0 +1,36 @@
+body{
+    
+}
+
+div > *{
+    margin: 0.3rem;
+}
+
+.optionValue{
+    display: flex;
+}
+
+.optionValue input{
+    width: 4rem;
+}
+
+input,select,mat-dialog-actions button{
+    border: 1px solid #5fb2db;
+    border-radius: 10%;
+}
+
+mat-dialog-actions{
+    display: flex;
+    flex-direction: column;
+}
+
+mat-dialog-actions button{
+    background-color: #fff;
+    margin: 0.3rem 0;
+    width: 5rem;
+}
+
+mat-dialog-actions button:first-child{
+    background-color: #5fb2db;
+}
+

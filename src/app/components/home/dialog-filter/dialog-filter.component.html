@@ -1,0 +1,45 @@
+<mat-dialog-content>
+    <div class="addFilter">
+        <span class="header">Add Filter</span>
+        <select [(ngModel)]="filter.filterType">
+            <option *ngFor="let filterType of filterTypes" [value]="filterType">
+                {{filterType}}
+            </option>
+        </select>
+    </div>
+    <div class="filterOptionsName" *ngIf="filter.filterType == 'Name'">
+        <span class="header">Name</span>
+        <input type="text" [(ngModel)]="filter.name">
+    </div>
+    <div class="filterOptionsNotName" *ngIf="filter.filterType != 'Name'">
+        <div class="optionType">
+            <select [(ngModel)]="filter.filterCondition">
+                <option *ngFor="let filterCondition of filterConditions" [value]="filterCondition">
+                    {{filterCondition}}
+                </option>
+            </select>
+        </div>
+        <div class="optionValueTypeBetween" *ngIf="filter.filterCondition == 'Before'">
+            <span>less than</span>
+            <input type="text" [(ngModel)]="filter.firstValue">
+        </div>
+        <div class="optionValueTypeBetween" *ngIf="filter.filterCondition == 'Between'">
+            <input type="text" [(ngModel)]="filter.firstValue">
+            <span>and</span>
+            <input type="text" [(ngModel)]="filter.secondValue">
+        </div>
+        <div class="optionValueTypeBetween" *ngIf="filter.filterCondition == 'After'">
+            <span>more than</span>
+            <input type="text" [(ngModel)]="filter.firstValue">
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button [mat-dialog-close]="filter" [disabled]="(filter.filterType == 'Name' && !filter.name) || 
+    (filter.filterType != 'Name' && filter.filterCondition !='Between' && !filter.firstValue) || 
+    (filter.filterType != 'Name' && filter.filterCondition =='Between' 
+    && (!filter.firstValue || !filter.secondValue))">
+        Confirm</button>
+
+    <button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
