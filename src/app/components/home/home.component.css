@@ -51,37 +51,56 @@ nav{
  .nav-list{
     padding-top: 3rem;
     width: 13rem;
-    height: 100vh;
+    height: 93vh;
     background-color: #5fb2db;
     overflow-y: auto;
     position: fixed;
     top: 0;
-    left: 0;
     bottom: 0;
     z-index: 1500;
+}
+
+.nav-list:first-child{
+    left: 0;
 }
 
 .nav-list.active{
     right: 0;
 }
 
-.close{
+.nav-list .close{
     position: absolute;
     top: 1rem;
     right: 1.5rem;
+}
+
+.nav-list:last-child{
+    z-index: 2000;
+    background-color: #ded4ed;
+    right: -14rem;
+    direction: rtl;  
+}
+
+.nav-list:last-child > div{
+    direction: ltr;
+}
+
+.nav-list:last-child > div .close{
+    right: 0;
+    left: 1rem;
 }
 
 .nav-item{
     margin: 0 0 1.5rem 1rem;
 }
 
-.nav-link{
+.nav-item-content{
     font-size: 1.6rem;
     text-transform: capitalize;
     color: rgba(0, 0, 0, 0.7);
 }
 
-.close i{
+.close fa-icon{
     color: #eb648c;
 }
 
@@ -89,9 +108,18 @@ fa-icon{
     padding-right: 1rem;
 }
 
-.userName{
-    margin-right: 2rem;
+.navTitle{
     font-weight: bold;
+}
+
+.nav-list:last-child > div .navTitle{
+    margin: 1rem 0 1rem 2rem;
+}
+
+#clearFilters{
+    background-color: #aaa;
+    border: 1px solid #eb648c;
+    border-radius: 10%;
 }
 
 #buttonWebsite{
@@ -122,6 +150,10 @@ fa-icon{
     width: 0.5rem;
     height: 1rem;
 } 
+
+.contact fa-icon:last-child{
+    padding-left: 0.5rem;
+}
 
 #HRUser{
     font-weight: bold;
@@ -198,10 +230,11 @@ fa-icon{
 .generalSettings>:last-child >:nth-child(5){
     width: 6rem;
 }
-
+.generalSettings>:last-child >:nth-child(6){
+    width: 8rem;
+}
 .table{
-    margin: 5rem 0 0 13rem;
-    
+    margin: 5rem 0 0 13rem;    
 }
 
 table fa-icon{
@@ -216,28 +249,49 @@ table{
     max-width: 63.5rem;
     display: block;
     overflow-x: scroll;
-    scroll-margin-right: 3;
 }
 
 
 th fa-icon:last-child{
-    margin-left: 7rem;
+    margin-left: 90%;
 }
 
 
-table , th  {
-    border: 1px solid #5fb2db;
+
+
+table{
+    border:2px solid #5fb2db;
 }
 
-td{
-    border-left: 1px solid #5fb2db;
-    border-right: 1px solid #5fb2db;;
+
+td , th{
+    border-right: 2px solid #5fb2db;
+}
+
+table tr >*:last-child{
+    border-right: none;
+}
+
+table tr:last-child >td{
+    border-bottom: none;
+}
+
+table tr:nth-child(1) >td{
+    border-top: 2px solid #5fb2db;
 }
 
  th , td{
     text-align: left;
     padding: 1rem 1rem 1rem 0.5rem;
 } 
+
+th{
+    padding-right: 3rem;
+}
+
+th:first-child{
+    padding-right: 4.2rem;
+}
 
 tr td:last-child input{
     margin: 0 0.5rem;

@@ -19,7 +19,7 @@
                 </option>
             </select>
         </div>
-        <div class="optionValueTypeBetween" *ngIf="filter.filterCondition == 'Before'">
+        <div class="optionValueTypeBefore" *ngIf="filter.filterCondition == 'Before'">
             <span>less than</span>
             <input type="text" [(ngModel)]="filter.firstValue">
         </div>
@@ -28,7 +28,7 @@
             <span>and</span>
             <input type="text" [(ngModel)]="filter.secondValue">
         </div>
-        <div class="optionValueTypeBetween" *ngIf="filter.filterCondition == 'After'">
+        <div class="optionValueTypeAfter" *ngIf="filter.filterCondition == 'After'">
             <span>more than</span>
             <input type="text" [(ngModel)]="filter.firstValue">
         </div>

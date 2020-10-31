@@ -6,11 +6,12 @@ div > *{
     margin: 0.3rem;
 }
 
-.optionValue{
+.optionValueTypeBefore,.optionValueTypeBetween,.optionValueTypeAfter ,.filterOptionsName{
     display: flex;
 }
 
-.optionValue input{
+.optionValueTypeBefore input,.optionValueTypeBetween input
+,.optionValueTypeAfter input,.filterOptionsName input{
     width: 4rem;
 }
 

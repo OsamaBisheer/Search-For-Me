@@ -2,44 +2,40 @@
     <div class="container">
         <nav>
 
-            <div class="menu-icons open">
-                <i class="icon ion-md-menu"></i>
-            </div>
-
             <ul class="nav-list">
                 <div class="menu-icons close">
-                    <fa-icon [icon]="faTimes"></fa-icon>
+                    <fa-icon (click)="closeMenu()" [icon]="faTimes"></fa-icon>
                 </div>
                 <li class="nav-item">
-                    <span class="userName">Ahmed</span>
+                    <span class="navTitle">Ahmed</span>
                 </li>
                 <li class="nav-item">
                     <fa-icon [icon]="faHome"></fa-icon>
-                    <a href="#" class="nav-link current">Home</a>
+                    <a href="#" class="nav-item-content current">Home</a>
                 </li>
                 <li class="nav-item">
                     <fa-icon [icon]="faDollarSign"></fa-icon>
-                    <a href="#" class="nav-link">Payroll</a>
+                    <a href="#" class="nav-item-content">Payroll</a>
                 </li>
                 <li class="nav-item">
                     <fa-icon [icon]="faBook"></fa-icon>
-                    <a href="#" class="nav-link">My Payslip</a>
+                    <a href="#" class="nav-item-content">My Payslip</a>
                 </li>
                 <li class="nav-item">
                     <fa-icon [icon]="faLink"></fa-icon>
-                    <a href="#" class="nav-link">My Loans</a>
+                    <a href="#" class="nav-item-content">My Loans</a>
                 </li>
                 <li class="nav-item">
                     <fa-icon [icon]="faUser"></fa-icon>
-                    <a href="#" class="nav-link">My Profile</a>
+                    <a href="#" class="nav-item-content">My Profile</a>
                 </li>
                 <li class="nav-item">
                     <fa-icon [icon]="faChartPie"></fa-icon>
-                    <a href="#" class="nav-link">Reports</a>
+                    <a href="#" class="nav-item-content">Reports</a>
                 </li>
                 <li class="nav-item">
                     <fa-icon [icon]="faCog"></fa-icon>
-                    <a href="#" class="nav-link">Settings</a>
+                    <a href="#" class="nav-item-content">Settings</a>
                 </li>
                 <input id="buttonWebsite" class="nav-item" type="button" value="Website">
 
@@ -51,6 +47,23 @@
                     </ul>
                 </div>
             </ul>
+
+            <ul class="nav-list">
+                <div>
+                    <div class="menu-icons close">
+                        <fa-icon (click)="closeFiltersMenu()" [icon]="faTimes"></fa-icon>
+                    </div>
+                    <li class="nav-item"></li>
+                    <li class="nav-item">
+                        <input type="button" id="clearFilters" (click)="clearFilters()" value="Clear Filters">
+                    </li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item" *ngFor="let filter of employeesFiltersOperatorFunctions;index as i">
+                        <fa-icon (click)="removeFilter(i)" [icon]="faTimes"></fa-icon>
+                        <span class="nav-item-content">Filter {{i + 1}}</span>
+                    </li>
+                </div>
+            </ul>
         </nav>
     </div>
 </header>
@@ -58,7 +71,7 @@
 <main>
     <section class="generalSettings">
         <div>
-            <fa-icon [icon]="faBars"></fa-icon>
+            <fa-icon (click)="openMenu()" [icon]="faBars"></fa-icon>
             <p id="HRUser"><span id="HR">HR</span> User</p>
         </div>
         <div>
@@ -77,7 +90,6 @@
             <fa-icon [icon]="faQuestionCircle"></fa-icon>
             <fa-icon [icon]="faCog"></fa-icon>
             <fa-icon [icon]="faCaretDown"></fa-icon>
-            <i>Show Filters</i>
         </div>
         <div>
             <span>
@@ -99,52 +111,58 @@
                 <input type="button" value="Export">
                 <fa-icon [icon]="faDownload"></fa-icon>
             </div>
+            <div (click)="openFiltersMenu()" *ngIf="employeesFiltersOperatorFunctions.length > 0">
+                <input type="button" value="Show Filters">
+                <fa-icon [icon]="faFilter"></fa-icon>
+            </div>
         </div>
     </section>
     <section class="table">
-        <table>
-            <thead>
-                <tr>
-                    <th>
-                        Name
-                        <fa-icon [icon]="faSearch"></fa-icon>
-                        <fa-icon [icon]="faAngleUp"></fa-icon>
-                    </th>
-                    <th>
-                        Title
-                    </th>
-                    <th>
-                        Hiring Date
-                    </th>
-                    <th>
-                        Gross Salary
-                    </th>
-                    <th>
-                        Actions
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let employee of employees">
-                    <td>
-                        {{employee.fullName_FL}}
-                    </td>
-                    <td>
-                        {{employee.position.name_FL}}
-                    </td>
-                    <td>
-                        {{employee.hiringDate | date}}
-                    </td>
-                    <td>
-                        {{employee.firstContractingSalary | number}}
-                    </td>
-                    <td>
-                        <fa-icon [icon]="faEdit"></fa-icon> <input type="button" value="Terminate" /> <input
-                            type="button" value="Suspend" />
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="tableWrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                            <fa-icon [icon]="faSearch"></fa-icon>
+                            <fa-icon [icon]="faAngleUp"></fa-icon>
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Hiring Date
+                        </th>
+                        <th>
+                            Gross Salary
+                        </th>
+                        <th>
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let employee of employees">
+                        <td>
+                            {{employee.fullName_FL}}
+                        </td>
+                        <td>
+                            {{employee.position.name_FL}}
+                        </td>
+                        <td>
+                            {{employee.hiringDate | date}}
+                        </td>
+                        <td>
+                            {{employee.firstContractingSalary | number}}
+                        </td>
+                        <td>
+                            <fa-icon [icon]="faEdit"></fa-icon> <input type="button" value="Terminate" /> <input
+                                type="button" value="Suspend" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="tableButtons">
             <div>
                 <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>

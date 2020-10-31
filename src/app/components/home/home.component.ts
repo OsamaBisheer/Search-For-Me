@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import {
   faCoffee, faHome, faDollarSign, faBook, faUser, faChartPie, faPlus, faDownload, faAngleDoubleLeft,
-  faCog, faLink, faBars, faTimes, faCaretDown, faSearch, faAngleUp, faAngleDown, faAngleDoubleRight
+  faCog, faLink, faBars, faTimes, faCaretDown, faSearch, faAngleUp, faAngleDown, faAngleDoubleRight, faFilter
 } from '@fortawesome/free-solid-svg-icons';
 import { faTwitter, faLinkedinIn, faFacebookF } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope, faQuestionCircle, faEdit } from '@fortawesome/free-regular-svg-icons';
@@ -44,15 +44,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   faEdit = faEdit;
   faAngleDoubleLeft = faAngleDoubleLeft;
   faAngleDoubleRight = faAngleDoubleRight;
+  faFilter = faFilter;
   employees: Array<Employee>;
   private subscribe: Subscription;
   private countObservable: Observable<Array<Employee>>;
-  private employeesFiltersOperatorFunctions: Array<OperatorFunction<Object, any>>;
+  employeesFiltersOperatorFunctions: Array<OperatorFunction<Object, any>>;
   constructor(private employeeService: EmployeeService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     //this.employees = this.employeeService.getEmployees();
     this.employeesFiltersOperatorFunctions = [];
+
+    this.employeesFiltersOperatorFunctions.length = 23;
+
     this.countObservable = this.employeeService.getEmployeesUsingHttp()
       .pipe(map(employeesObject =>
         ((employeesObject as any)
@@ -154,6 +158,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       }
 
       this.callFilters();
+
+      this.openFiltersMenu();
     });
   }
 
@@ -180,6 +186,40 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
   }
+
+  removeFilter(i: number) {
+    this.employeesFiltersOperatorFunctions.splice(i, 1);
+    this.callFilters();
+  }
+
+  clearFilters(): void {
+    this.employeesFiltersOperatorFunctions = [];
+    this.callFilters();
+    this.closeFiltersMenu();
+  }
+
+
+  openMenu(): void {
+    const lists = document.getElementsByClassName("nav-list");
+    (lists[0] as any).style.left = "0";
+  }
+
+  closeMenu(): void {
+    const lists = document.getElementsByClassName("nav-list");
+    (lists[0] as any).style.left = "-14rem";
+  }
+
+  openFiltersMenu(): void {
+    const lists = document.getElementsByClassName("nav-list");
+    (lists[1] as any).style.right = "0";
+  }
+
+  closeFiltersMenu(): void {
+    const lists = document.getElementsByClassName("nav-list");
+    (lists[1] as any).style.right = "-14rem";
+  }
+
+
 
 }
 
