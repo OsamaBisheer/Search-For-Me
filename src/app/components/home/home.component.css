@@ -166,7 +166,7 @@ fa-icon{
     padding-bottom:2px;
 }
 
-.generalSettings{
+.generalSettings,.tableSettings > div  {
     margin-top: 1.5rem;
     margin-left: 11rem;
     display: flex;
@@ -189,28 +189,34 @@ fa-icon{
     background-color: #5fb2db;
 }
 
-.generalSettings>:last-child{
-    position: fixed;
-    top: 4rem;
-    left: 11rem;
-    display: flex;
-    flex-direction: row;
+.tableSettings > div{
+    margin-left: 12.5rem;
 }
 
-.generalSettings>:last-child > span{
+.generalSettings > div:last-child select, .tableSettings select{
+    border: none;
+    background-color: #fff;
+    padding-left: 1rem;
+}
+
+.generalSettings > div:last-child select{
+    padding-left: 3rem;
+}
+
+.tableSettings > div > span  ,  .generalSettings > div:last-child > span{
     margin:0.3rem 0 0 0.5rem;
 }
 
-.generalSettings>:last-child fa-icon{
+.tableSettings > div fa-icon , .generalSettings > div:last-child fa-icon{
     padding-right: 0;
 }
 
-.generalSettings>:last-child input{
+.tableSettings > div input , .generalSettings > div:last-child input{
     background-color: #fff;
     border: none;
 }
 
-.generalSettings>:last-child div{
+.tableSettings > div div , .generalSettings > div:last-child div{
     margin-left: 0.3rem;
     border: 1px solid #5fb2db;
     border-radius: 10%;
@@ -219,22 +225,22 @@ fa-icon{
     padding: 0.3rem;
 }
 
-.generalSettings>:last-child div >:nth-child(1){
+.tableSettings > div div >:nth-child(1), .generalSettings > div:last-child div >:nth-child(1) {
     margin-right: 1.5rem;
 }
 
-.generalSettings>:last-child >:nth-child(2){
+.tableSettings > div >:nth-child(2) {
     width: 4rem;
 }
 
-.generalSettings>:last-child >:nth-child(5){
+.tableSettings > div >:nth-child(5) {
     width: 6rem;
 }
-.generalSettings>:last-child >:nth-child(6){
+.tableSettings > div >:nth-child(6) {
     width: 8rem;
 }
 .table{
-    margin: 5rem 0 0 13rem;    
+    margin: 2rem 0 0 13rem;    
 }
 
 table fa-icon{
@@ -340,28 +346,30 @@ tr td:last-child input{
     margin-top: 0.5rem;
   }
 
-@media screen and (max-width:750px){
-    .nav-list{
-        left: -13rem;
+@media screen and (max-width:850px){
+    .nav-list:first-child{
+        left: -14rem;
     }
 
     main section ,.tableSettings > div{
+        margin-left: 2rem;
+    }
+
+    .tableSettings > div{
         margin-left: 0rem;
     }
+
     
     .generalSettings >:nth-child(1){
         margin-left: 0rem;
     }
 
-    .generalSettings>:last-child{
-        left:0;
-        margin:0;
-    }
+   
 
     
 }
 
-@media screen and (max-width:530px){
+@media screen and (max-width:650px){
     
 
     .generalSettings{
@@ -370,11 +378,7 @@ tr td:last-child input{
         margin-right: 2rem;
     }
     
-    .generalSettings>:last-child{
-        position: static;
-        flex-direction: column;
-    }
-
+   
     .generalSettings> div{
         display: flex;
         flex-direction: column;
@@ -384,22 +388,47 @@ tr td:last-child input{
         margin-top: 0.5rem;
     }
 
-    .generalSettings>:last-child > div > *{
-        margin-top: -0.5rem;
-    }
+    
 
     .language{
         padding: 0.3rem;
         width: 3rem;
     }
 
+    .generalSettings > div:last-child div{
+        padding-bottom: 1rem;
+    }
 
-   
+    .generalSettings > div:last-child div:last-child{
+        width: 8rem;
+    }
+    /* .tableSettings > div{
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: 3rem;
+        align-items: center;
+    }
+
+    .tableSettings > div > *{
+        margin-top: 0.5rem;
+    } */
     
 }
 
-@media screen and (max-width:400px){
-    
+@media screen and (max-width:550px){
+    .tableButtons{
+        margin-left: 60%;
+    }
+
+    #pageNum{
+        margin-left: 70%;
+      }
+}
+
+@media screen and (max-width:450px){
+
     .generalSettings{
         justify-content: unset;
 
@@ -409,7 +438,43 @@ tr td:last-child input{
     #HRUser{
         width: 3.8rem;
     }
+
+    
+
+    
+
+    .nav-list >:last-child {
+        margin-bottom: 50px;
+    }
+
+   
 }
+
+@media screen and (max-width:350px){
+    .tableButtons{
+        margin-left: 40%;
+    }
+
+    #pageNum{
+        margin-left: 50%;
+      }
+
+     
+}
+
+
+@media screen and (max-width:250px){
+    .tableButtons{
+        margin-left: 0;
+    }
+
+    #pageNum{
+        margin-left: 0;
+      }
+
+     
+}
+
 
  /* @media screen and (max-width:360px){
     
@@ -433,11 +498,22 @@ tr td:last-child input{
 
 @media screen and (max-height:500px){
     .nav-list{
-        height: 89vh;
+        height: 90vh;
+    }
+
+    .nav-list >:last-child {
+        margin-bottom: 50px;
     }
 }
 
-@media screen and (max-height:400px){
+@media screen and (max-height:260px){
+    
+    .nav-list >:last-child {
+        margin-bottom: 70px;
+    }
+}
+
+/* @media screen and (max-height:400px){
     .nav-list{
         height: 86vh;
     }
@@ -471,6 +547,6 @@ tr td:last-child input{
     .nav-list{
         height: 22vh;
     }
-}
+} */
 
 

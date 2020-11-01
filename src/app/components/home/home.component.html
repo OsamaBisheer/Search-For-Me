@@ -92,18 +92,26 @@
             <fa-icon [icon]="faCaretDown"></fa-icon>
         </div>
         <div>
+
+        </div>
+    </section>
+    <section class="tableSettings">
+        <div>
             <span>
                 Show
             </span>
             <div id="dropDown">
-                <input type="button" value="20">
-                <fa-icon [icon]="faAngleDown"></fa-icon>
+                <select (change)="onChangeSize($event.target.value)">
+                    <option *ngFor="let sizeOption of sizeOptions" [value]="sizeOption">
+                        {{sizeOption}}
+                    </option>
+                </select>
             </div>
             <div>
                 <fa-icon [icon]="faPlus"></fa-icon>
                 <input type="button" value="Employee">
             </div>
-            <div (click)="filterDialog()">
+            <div id="filterDialog" (click)="filterDialog()">
                 <fa-icon [icon]="faPlus"></fa-icon>
                 <input type="button" value="Add Filter">
             </div>
@@ -111,7 +119,8 @@
                 <input type="button" value="Export">
                 <fa-icon [icon]="faDownload"></fa-icon>
             </div>
-            <div (click)="openFiltersMenu()" *ngIf="employeesFiltersOperatorFunctions.length > 0">
+            <div id="openFiltersMenu" (click)="openFiltersMenu()"
+                [hidden]="employeesFiltersOperatorFunctions.length == 0">
                 <input type="button" value="Show Filters">
                 <fa-icon [icon]="faFilter"></fa-icon>
             </div>
@@ -166,15 +175,15 @@
         <div class="tableButtons">
             <div>
                 <fa-icon [icon]="faAngleDoubleLeft"></fa-icon>
-                <input type="button" value="Previous">
+                <input [disabled]="!(startIndex >= 1)" (click)="previuos()" type="button" value="Previous">
             </div>
             <div>
-                <input type="button" value="Next">
+                <input [disabled]="startIndex >= lastPage - 1" (click)="next()" type="button" value="Next">
                 <fa-icon [icon]="faAngleDoubleRight"></fa-icon>
             </div>
         </div>
         <p id="pageNum">
-            Page 1/40
+            Page {{startIndex + 1}}/{{lastPage}}
         </p>
     </section>
 </main>

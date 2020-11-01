@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import {
   faCoffee, faHome, faDollarSign, faBook, faUser, faChartPie, faPlus, faDownload, faAngleDoubleLeft,
   faCog, faLink, faBars, faTimes, faCaretDown, faSearch, faAngleUp, faAngleDown, faAngleDoubleRight, faFilter
@@ -7,7 +7,7 @@ import { faTwitter, faLinkedinIn, faFacebookF } from '@fortawesome/free-brands-s
 import { faEnvelope, faQuestionCircle, faEdit } from '@fortawesome/free-regular-svg-icons';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee';
-import { Subscription, Observable, OperatorFunction } from 'rxjs';
+import { Subscription, Observable, OperatorFunction, fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFilterComponent } from './dialog-filter/dialog-filter.component';
@@ -46,29 +46,75 @@ export class HomeComponent implements OnInit, OnDestroy {
   faAngleDoubleRight = faAngleDoubleRight;
   faFilter = faFilter;
   employees: Array<Employee>;
-  private subscribe: Subscription;
-  private countObservable: Observable<Array<Employee>>;
+  //private subscribe: Subscription;
+  //private resizeSubscription: Subscription;
+  //private loadSubscription: Subscription;
+  private allSubscriptions: Array<Subscription>;
+  private initialObservable: Observable<Object>;
+  private finalObservable: Observable<Object>;
   employeesFiltersOperatorFunctions: Array<OperatorFunction<Object, any>>;
-  constructor(private employeeService: EmployeeService, private dialog: MatDialog) { }
+  startIndex: number;
+  size: number;
+  employeesCount: number;
+  lastPage: number;
+  sizeOptions: Array<number>;
+  private pageinitionOperatorFunction: OperatorFunction<Object, any>
+
+  constructor(private employeeService: EmployeeService, private dialog: MatDialog, private elementRef: ElementRef) {
+  }
 
   ngOnInit(): void {
-    //this.employees = this.employeeService.getEmployees();
+
+    this.allSubscriptions = [];
+
     this.employeesFiltersOperatorFunctions = [];
 
-    this.employeesFiltersOperatorFunctions.length = 23;
+    this.startIndex = 0;
 
-    this.countObservable = this.employeeService.getEmployeesUsingHttp()
-      .pipe(map(employeesObject =>
-        ((employeesObject as any)
-          .data.employees).slice(0, 19)));
+    this.size = 20;
 
-    this.subscribe = this.countObservable
-      .subscribe(firstEmployeesRange => this.employees = firstEmployeesRange as Array<Employee>);
+    this.lastPage = 0;
+
+    this.sizeOptions = [20, 10, 5];
+
+    this.initialObservable = this.employeeService.getEmployeesUsingHttp()
+      .pipe(map(employeesObject => ((employeesObject as any).data.employees)));
+
+    this.pageinitionOperatorFunction = this.getPagitionationOperatorFunction();
+
+    this.allSubscriptions.push(fromEvent(window, 'load').subscribe(e => {
+      this.moveTableSettings((e.currentTarget as any).innerWidth);
+    }));
+
+    this.allSubscriptions.push(fromEvent(window, 'resize').subscribe(e => {
+      this.moveTableSettings((e.target as any).innerWidth);
+    }));
+
+    this.allSubscriptions.push(this.callCountObservable(this.initialObservable));
+  }
+
+  onChangeSize(size: number) {
+    this.size = size;
+    this.resetIndex();
+    this.callObservableAfterPagintion();
   }
 
 
-  ngOnDestroy(): void {
-    this.subscribe.unsubscribe();
+  callCountObservable(observable: Observable<Object>): Subscription {
+    this.allSubscriptions.push(this.getLastPage(observable));
+
+    return observable
+      .pipe(this.pageinitionOperatorFunction)
+      .subscribe(firstEmployeesRange =>
+        this.employees = firstEmployeesRange as Array<Employee>
+      );
+  }
+
+  getLastPage(observable: Observable<Object>): Subscription {
+    return observable.subscribe(employees => {
+      this.employeesCount = (employees as any).length;
+      this.lastPage = Math.ceil(this.employeesCount / this.size);
+    });
   }
 
   filterDialog(): void {
@@ -77,12 +123,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe((filter: Filter) => {
+
+      if (!filter)
+        return;
+
       switch (filter.filterType) {
         case "Name":
           {
             this.employeesFiltersOperatorFunctions.push(
               map((employees: Array<Employee>) =>
                 employees.filter(employee => employee.fullName_FL == filter.name)));
+
 
             break;
           }
@@ -157,6 +208,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
       }
 
+      this.resetIndex();
+
       this.callFilters();
 
       this.openFiltersMenu();
@@ -164,40 +217,70 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   callFilters(): void {
-    console.log(this.employeesFiltersOperatorFunctions);
+    let subscribe;
     if (this.employeesFiltersOperatorFunctions.length == 0) {
-      this.subscribe = this.countObservable
-        .subscribe(firstEmployeesRange => this.employees = firstEmployeesRange as Array<Employee>);
+      subscribe = this.callCountObservable(this.initialObservable);
     }
     else {
-      let finalObservable = this.countObservable.pipe(this.employeesFiltersOperatorFunctions[0]);
+
+      this.finalObservable = this.initialObservable.pipe(this.employeesFiltersOperatorFunctions[0]);
 
       if (this.employeesFiltersOperatorFunctions.length > 1) {
         for (let index = 0; index < this.employeesFiltersOperatorFunctions.length - 1; index++) {
-          finalObservable = finalObservable
+          this.finalObservable = this.finalObservable
             .pipe(this.employeesFiltersOperatorFunctions[++index]);
 
         }
 
       }
-      this.subscribe = finalObservable
-        .subscribe(firstEmployeesRange => this.employees = firstEmployeesRange as Array<Employee>);
+
+      subscribe = this.callCountObservable(this.finalObservable);
 
     }
 
+    this.allSubscriptions.push(subscribe);
+
   }
 
-  removeFilter(i: number) {
+  resetIndex(): void {
+    this.startIndex = 0;
+  }
+
+  removeFilter(i: number): void {
     this.employeesFiltersOperatorFunctions.splice(i, 1);
+    this.resetIndex();
     this.callFilters();
   }
 
   clearFilters(): void {
     this.employeesFiltersOperatorFunctions = [];
+    this.resetIndex();
     this.callFilters();
     this.closeFiltersMenu();
   }
 
+  next(): void {
+    this.startIndex++;
+    this.callObservableAfterPagintion();
+  }
+
+  previuos(): void {
+    this.startIndex--;
+    this.callObservableAfterPagintion();
+  }
+
+  callObservableAfterPagintion(): void {
+    let observable = this.employeesFiltersOperatorFunctions.length > 0 ?
+      this.finalObservable : this.initialObservable;
+
+    this.allSubscriptions.push(this.callCountObservable(observable));
+  }
+
+  getPagitionationOperatorFunction(): OperatorFunction<Object, any> {
+    return map(employees => (employees as Array<Employee>)
+      .slice(this.startIndex * this.size, ((this.startIndex + 1) * this.size)));
+
+  }
 
   openMenu(): void {
     const lists = document.getElementsByClassName("nav-list");
@@ -219,8 +302,52 @@ export class HomeComponent implements OnInit, OnDestroy {
     (lists[1] as any).style.right = "-14rem";
   }
 
+  moveTableSettingsSmallWidth(): void {
+    let tableSettingsContent = document.getElementsByClassName("tableSettings")[0].children[0].innerHTML;
 
+    if (tableSettingsContent == "")
+      return;
 
+    document.getElementsByClassName("generalSettings")[0].children[3].innerHTML = tableSettingsContent;
+    document.getElementsByClassName("tableSettings")[0].children[0].innerHTML = "";
+
+    this.elementRef.nativeElement.querySelector("#filterDialog").addEventListener("click",
+      this.filterDialog.bind(this));
+    this.elementRef.nativeElement.querySelector("#openFiltersMenu").addEventListener("click",
+      this.openFiltersMenu.bind(this));
+    //document.getElementById("filterDialog").addEventListener("click", this.filterDialog);
+    // document.getElementById("openFiltersMenu").addEventListener("click", this.openFiltersMenu);
+
+  }
+
+  moveTableSettingsBigWidth(): void {
+    let tableSettingsContent = document.getElementsByClassName("generalSettings")[0].children[3].innerHTML;
+
+    if (tableSettingsContent == "")
+      return;
+
+    document.getElementsByClassName("tableSettings")[0].children[0].innerHTML = tableSettingsContent;
+    document.getElementsByClassName("generalSettings")[0].children[3].innerHTML = "";
+
+    this.elementRef.nativeElement.querySelector("#filterDialog").addEventListener("click",
+      this.filterDialog.bind(this));
+    this.elementRef.nativeElement.querySelector("#openFiltersMenu").addEventListener("click",
+      this.openFiltersMenu.bind(this));
+
+  }
+
+  moveTableSettings(width): void {
+    if (width < 650)
+      this.moveTableSettingsSmallWidth();
+    else
+      this.moveTableSettingsBigWidth();
+  }
+
+  ngOnDestroy(): void {
+    for (const subscribe of this.allSubscriptions) {
+      subscribe.unsubscribe();
+    }
+  }
 }
 
 
