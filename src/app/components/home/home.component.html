@@ -101,7 +101,7 @@
                 Show
             </span>
             <div id="dropDown">
-                <select (change)="onChangeSize($event.target.value)">
+                <select id="select" (change)="onChangeSize($event)">
                     <option *ngFor="let sizeOption of sizeOptions" [value]="sizeOption">
                         {{sizeOption}}
                     </option>

@@ -12,6 +12,7 @@ import { map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFilterComponent } from './dialog-filter/dialog-filter.component';
 import { Filter } from 'src/app/models/filter';
+import { DomSanitizer } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-home',
@@ -93,8 +94,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.allSubscriptions.push(this.callCountObservable(this.initialObservable));
   }
 
-  onChangeSize(size: number) {
-    this.size = size;
+  onChangeSize(e: Event) {
+    this.size = (e.target as any).value;
     this.resetIndex();
     this.callObservableAfterPagintion();
   }
@@ -208,6 +209,8 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
       }
 
+      this.elementRef.nativeElement.querySelector("#openFiltersMenu").style.display = "flex";
+
       this.resetIndex();
 
       this.callFilters();
@@ -250,9 +253,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.employeesFiltersOperatorFunctions.splice(i, 1);
     this.resetIndex();
     this.callFilters();
+    if (this.employeesFiltersOperatorFunctions.length == 0)
+      this.elementRef.nativeElement.querySelector("#openFiltersMenu").style.display = "none";
+    else
+      this.elementRef.nativeElement.querySelector("#openFiltersMenu").style.display = "flex";
   }
 
   clearFilters(): void {
+    this.elementRef.nativeElement.querySelector("#openFiltersMenu").style.display = "none";
     this.employeesFiltersOperatorFunctions = [];
     this.resetIndex();
     this.callFilters();
@@ -302,6 +310,15 @@ export class HomeComponent implements OnInit, OnDestroy {
     (lists[1] as any).style.right = "-14rem";
   }
 
+  bindingEvents(): void {
+    this.elementRef.nativeElement.querySelector("#select").addEventListener("change",
+      this.onChangeSize.bind(this));
+    this.elementRef.nativeElement.querySelector("#filterDialog").addEventListener("click",
+      this.filterDialog.bind(this));
+    this.elementRef.nativeElement.querySelector("#openFiltersMenu").addEventListener("click",
+      this.openFiltersMenu.bind(this));
+  }
+
   moveTableSettingsSmallWidth(): void {
     let tableSettingsContent = document.getElementsByClassName("tableSettings")[0].children[0].innerHTML;
 
@@ -311,10 +328,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     document.getElementsByClassName("generalSettings")[0].children[3].innerHTML = tableSettingsContent;
     document.getElementsByClassName("tableSettings")[0].children[0].innerHTML = "";
 
-    this.elementRef.nativeElement.querySelector("#filterDialog").addEventListener("click",
-      this.filterDialog.bind(this));
-    this.elementRef.nativeElement.querySelector("#openFiltersMenu").addEventListener("click",
-      this.openFiltersMenu.bind(this));
+    this.bindingEvents();
     //document.getElementById("filterDialog").addEventListener("click", this.filterDialog);
     // document.getElementById("openFiltersMenu").addEventListener("click", this.openFiltersMenu);
 
@@ -329,10 +343,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     document.getElementsByClassName("tableSettings")[0].children[0].innerHTML = tableSettingsContent;
     document.getElementsByClassName("generalSettings")[0].children[3].innerHTML = "";
 
-    this.elementRef.nativeElement.querySelector("#filterDialog").addEventListener("click",
-      this.filterDialog.bind(this));
-    this.elementRef.nativeElement.querySelector("#openFiltersMenu").addEventListener("click",
-      this.openFiltersMenu.bind(this));
+    this.bindingEvents();
 
   }
 

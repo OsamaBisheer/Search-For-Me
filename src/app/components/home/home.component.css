@@ -402,6 +402,11 @@ tr td:last-child input{
     .generalSettings > div:last-child div:last-child{
         width: 8rem;
     }
+
+    .generalSettings > div:last-child div:last-child input{
+        height: 1rem;
+    }
+
     /* .tableSettings > div{
         display: flex;
         flex-direction: column;
